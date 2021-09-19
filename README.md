@@ -3,8 +3,8 @@
 ![Balls rolling](output/ball_rolling.gif)
 
 ### Contributors (alphabetical order)
-* Sky Huang (github.com/skyhuang1208)
-* Louis Yang (github.com/louis925)
+* Sky Huang ([github.com/skyhuang1208](https://github.com/skyhuang1208))
+* Louis Yang ([github.com/louis925](https://github.com/louis925))
 
 ### Introduction
 We built a physical-based simulator to calculate the time spent for a ball to roll through an inclined curve. The simulator solves classical equation of motion and simulates the ball movement in different ways (see below). This package was designed to be able to extend to more complicate scenarios; For example, it is straightforward to add frictions into the package, or to simulate the ball movement in a world where acceleration of gravity varies with time.
