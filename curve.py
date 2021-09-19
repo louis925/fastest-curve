@@ -65,7 +65,7 @@ class CurveLinear(Curve):
 
 
 class CurveExp(Curve):
-  """curve: y = A * exp(-Bx) + C."""
+  """Exponential curve: y = A * exp(-Bx) + C."""
 
   def __init__(self, A, B, C, h, w):
     super().__init__()
@@ -116,7 +116,7 @@ class CurveExp(Curve):
 
 
 class CurveParabola(Curve):
-  """curve: y = A x^2 + B x + C."""
+  """Parabolic curve: y = A x^2 + B x + C."""
 
   def __init__(self, A, B, C, h, w):
     super().__init__()
@@ -161,6 +161,64 @@ class CurveParabola(Curve):
     # generate A
     # NOTE: A can only be positive.
     A = np.random.uniform(*A_range) / w
+
+    # generate instance
+    return cls.generate_from_A(A, h, w)
+
+
+class CurveCircle(Curve):
+  """Circular curve: y = y0 - sqrt(R^2 - (x - x0)^2)."""
+
+  def __init__(self, R2, x0, y0, h, w):
+    super().__init__()
+    self.R2 = R2  # R2 = R^2
+    self.x0 = x0
+    self.y0 = y0
+    self.h = h
+    self.w = w
+
+  @staticmethod
+  def curve(R2, x0, y0, x):
+    dx = x - x0
+    return y0 - np.sqrt(R2 - dx * dx)
+
+  def cal_height(self, x):
+    return self.curve(self.R2, self.x0, self.y0, x)
+
+  def cal_slope(self, x):
+    dx = x - self.x0
+    return dx / np.sqrt(self.R2 - dx * dx)
+
+  def cal_curvature(self, x):
+    dx = x - self.x0
+    return self.R2 / np.power(self.R2 - dx * dx, 1.5)
+
+  @staticmethod
+  def _cal_R2_x0_y0(A, h, w):
+    """
+    For fixed (A, h, w), R^2, x0 and y0 are uniquely determined by the boundary
+    condition y(0) = h and y(w) = 0.
+    """
+    x0 = (w + A * h) / 2
+    y0 = (h + A * w) / 2
+    R2 = (1 + A * A)(h * h + w * w) / 4
+    return R2, x0, y0
+
+  @classmethod
+  def generate_from_A(cls, A, h, w):
+    """Minimum A is h / w"""
+    R2, x0, y0 = cls._cal_R2_x0_y0(A, h, w)
+    return cls(R2, x0, y0, h, w)
+
+  @classmethod
+  def generate(cls, h, w, A_factor_range=(1, 3)):
+    """Random generate a viable exponential curve.
+
+    A_factor_range: range of the factor multiplying to h/w. Viable minimum is 1.
+    """
+    # generate A
+    # NOTE: `A` can only be greater than h / w.
+    A = np.random.uniform(*A_factor_range) * h / w
 
     # generate instance
     return cls.generate_from_A(A, h, w)
