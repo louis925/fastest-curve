@@ -201,7 +201,7 @@ class CurveCircle(Curve):
     """
     x0 = (w + A * h) / 2
     y0 = (h + A * w) / 2
-    R2 = (1 + A * A)(h * h + w * w) / 4
+    R2 = (1 + A * A) * (h * h + w * w) / 4
     return R2, x0, y0
 
   @classmethod

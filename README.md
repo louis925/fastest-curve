@@ -1,6 +1,6 @@
 # Fastest curve
 
-![Balls rolling](output/ball_rolling.gif)
+![Balls rolling](output-1-2/ball_rolling.gif)
 
 ### Contributors (alphabetical order)
 * Sky Huang ([github.com/skyhuang1208](https://github.com/skyhuang1208))
@@ -24,4 +24,4 @@ In a frictionless curve, the ball follows *law of conservation of mechanical ene
 From the above apporach, we calculate the velocity of an given position. The travelling distance of the ball can be obtained by integraling over velocities at different positions. The travelling time can then be calculated. We can only obtain the total time spent but the moving process cannot be recorded.
 
 ### How to use
-See [`main.ipynb`](./main.ipynb).
+See [`main-1-2.ipynb`](./main-1-2.ipynb).
